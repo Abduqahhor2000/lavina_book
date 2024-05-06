@@ -6,14 +6,14 @@ import Madal from "../modal";
 import { LoadingButton } from "@mui/lab";
 import { useDelete } from "../../axios";
 
-export default function TaskCard({ task, setTasks, tasks }: { task: Task, setTasks: any, tasks: Task[]}) {
+export default function TaskCard({ book, setTasks, tasks }: { book: Task, setTasks: any, tasks: Task[]}) {
     const [isloading, setIsloading] = useState(false);
   //   const [selected, setSelected] = useState(false);
     
     function DelBook() {
       setIsloading(true);
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDelete(`/books/${task?.book?.id}`, undefined)
+      useDelete(`/books/${book?.book?.id}`, undefined)
         .then(({data}) => {
           setIsloading(false);
           setTasks(data.data)
@@ -43,7 +43,7 @@ export default function TaskCard({ task, setTasks, tasks }: { task: Task, setTas
     <>
       <TaskDiv>
         <div>
-          <h3>{task.book.title}</h3>
+          <h3>{book.book.title}</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur. Nulla adipiscing neque
             varius vestibulum magna in. Tortor quisque nisl congue ut tellus sem
@@ -51,16 +51,16 @@ export default function TaskCard({ task, setTasks, tasks }: { task: Task, setTas
           </p>
           <div className="aftir">
             <div>
-              {task.book.author}: {` `}
-              {task.book.published}-year
+              {book.book.author}: {` `}
+              {book.book.published}-year
             </div>
-            <div className="pages">{task.book.pages}</div>
+            <div className="pages">{book.book.pages}</div>
             {/* {selected ? null : (
               
             )} */}
           </div>
           <div className="changes">
-            <Madal task={task} setTasks={setTasks} tasks={tasks} />
+            <Madal task={book} setTasks={setTasks} tasks={tasks} />
             <LoadingButton
               onClick={()=>DelBook()}
               style={{ paddingLeft: "20px" }}
