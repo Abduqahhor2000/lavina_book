@@ -18,7 +18,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 
-export default function Madal({ task, setTasks, tasks }: { task: Task, tasks: Task[], setTasks: void }) {
+export default function Madal({ task, setTasks, tasks }: { task: Task, tasks: Task[], setTasks: any }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
