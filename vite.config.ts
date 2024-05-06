@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   esbuild: {
     target: 'esnext',
-    platform: 'neutral',
+    platform: 'node',
   },
 })
