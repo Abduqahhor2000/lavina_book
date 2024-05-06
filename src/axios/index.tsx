@@ -12,6 +12,8 @@ function createInstance(baseURL: string, data: object | undefined, url: string) 
           url +
           (data ? JSON.stringify(data) : "") +
           localStorage.getItem("secret");
+          console.log(signstr);
+          
 
         const sign = CryptoJS.MD5(signstr).toString();
         console.log(sign, signstr);
@@ -31,6 +33,12 @@ function createInstance(baseURL: string, data: object | undefined, url: string) 
   axiosInstance.interceptors.response.use(
     async (res) => res,
     (error) => {
+      // console.log(error);
+      // console.log(error.config.url);
+      if (error.response.status === 401 && error.config.url !== "/myself" && error.config.url !== "/signup") {
+        localStorage.clear()
+        window.location.href = "/sign-in"
+      }
       return Promise.reject(error);
     }
   );
@@ -39,7 +47,7 @@ function createInstance(baseURL: string, data: object | undefined, url: string) 
 }
 
 const instance = (url: string, data: object | undefined) =>
-  createInstance("https://0001.uz", data, url);
+  createInstance("https://no23.lavina.tech", data, url);
 
 export const useGet = (url: string, data: object | undefined) => {
   return instance(url, data).get(url);
@@ -52,9 +60,9 @@ export const usePost = (url: string, data: object | undefined) => {
 export const usePatch = (url: string, data: object | undefined) => {
   return instance(url, data).patch(url, data);
 };
-export const usePut = (url: string, data: object | undefined) => {
-  return instance(url, data).put(url, data);
-};
+// export const usePut = (url: string, data: object | undefined) => {
+//   return instance(url, data).put(url, data);
+// };
 
 export const useDelete = (url: string, data: object | undefined) => {
   return instance(url, data).delete(url, data);

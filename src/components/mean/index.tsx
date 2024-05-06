@@ -36,7 +36,7 @@ export default function Mean() {
       <div className="tasks">
         {isLoad
           ? <span className="loadingg">Loading...</span>
-          : tasks?.map((task) => <TaskComp key={task.book.id} task={task} />)}
+          : tasks?.map((task) => <TaskComp key={task.book.id} task={task} setTasks={setTasks} tasks={tasks}/>)}
       </div>
     </TaskPanel>
   );

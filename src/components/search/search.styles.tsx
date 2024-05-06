@@ -16,7 +16,7 @@ export const InputDiv = styled.div`
     transition: .3s;
 
     &:focus{
-        background-color: white;
+        background-color: #e4edff;
     }
 
     &::placeholder {
@@ -39,7 +39,7 @@ export const InputDiv = styled.div`
   }
   .valid{
     input{
-        background-color: white;
+        background-color: #e4edff;
     }
     .exit{
         display: block;

@@ -1,43 +1,43 @@
 import { TaskDiv } from "./task.styles";
-// import { useDelete} from "../../axios";
-// import { useState } from "react";
-// import { LoadingButton } from "@mui/lab";
+import { useState } from "react";
 // import axios, { AxiosError } from "axios";
 import { Task } from "./task.props";
 import Madal from "../modal";
 import { LoadingButton } from "@mui/lab";
+import { useDelete } from "../../axios";
 
-export default function Task({ task }: { task: Task }) {
-  //   const [isloading, setIsloading] = useState(false);
+export default function Task({ task, setTasks, tasks }: { task: Task, tasks: Task[], setTasks: (prevVar: Task[]) => Task[]}) {
+    const [isloading, setIsloading] = useState(false);
   //   const [selected, setSelected] = useState(false);
+    
+    function DelBook() {
+      setIsloading(true);
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDelete(`/books/${task?.book?.id}`, undefined)
+        .then(({data}) => {
+          setIsloading(false);
+          setTasks(data.data)
+          // setSelected(true);
+        })
+        .catch((e) => {
+          console.log(e);
+          
+          // if (axios.isAxiosError(error)) {
+          //   const axiosError = error as AxiosError;
+          //   if (axiosError.response) {
+          //     if (!axiosError.response.data.isOk) {
+          //       // setSelected(true);
+          //     }
+          //   } else {
+          //     console.log("Error message:", axiosError.message);
+          //   }
+          // } else {
+          //   console.error("Error fetching data:", error);
+          // }
 
-  //   function addBook() {
-  //     setIsloading(true);
-  //     // eslint-disable-next-line react-hooks/rules-of-hooks
-  //     useDelete(`books`, {
-  //       isbn: task.book.isbn,
-  //     })
-  //       .then(() => {
-  //         setIsloading(false);
-  //         setSelected(true);
-  //       })
-  //       .catch((error) => {
-  //         if (axios.isAxiosError(error)) {
-  //           const axiosError = error as AxiosError;
-  //           if (axiosError.response) {
-  //             if (!axiosError.response.data.isOk) {
-  //               setSelected(true);
-  //             }
-  //           } else {
-  //             console.log("Error message:", axiosError.message);
-  //           }
-  //         } else {
-  //           console.error("Error fetching data:", error);
-  //         }
-
-  //         setIsloading(false);
-  //       });
-  //   }
+          setIsloading(false);
+        });
+    }
 
   return (
     <>
@@ -60,11 +60,13 @@ export default function Task({ task }: { task: Task }) {
             )} */}
           </div>
           <div className="changes">
-            <Madal task={task} />
+            <Madal task={task} setTasks={setTasks} tasks={tasks} />
             <LoadingButton
+              onClick={()=>DelBook()}
               style={{ paddingLeft: "20px" }}
               color="error"
-              loadingPosition="start"
+              loading={isloading}
+              loadingPosition="center"
               startIcon={<img src="trash.svg" alt="trash" />}
               variant="contained"
               size="small"
