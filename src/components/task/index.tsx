@@ -1,12 +1,12 @@
 import { TaskDiv } from "./task.styles";
 import { useState } from "react";
 // import axios, { AxiosError } from "axios";
-import { Task } from "./task.props";
+// import { Task } from "./task.props";
 import Madal from "../modal";
 import { LoadingButton } from "@mui/lab";
 import { useDelete } from "../../axios";
 
-export default function Task({ task, setTasks, tasks }: { task: Task, tasks: Task[], setTasks: (prevVar: Task[]) => Task[]}) {
+export default function Task({ task, setTasks, tasks }: { task: Task, tasks: Task[], setTasks: void}) {
     const [isloading, setIsloading] = useState(false);
   //   const [selected, setSelected] = useState(false);
     
